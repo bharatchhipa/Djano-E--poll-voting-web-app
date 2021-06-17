@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+  {% url 'index' as index %}
+  {% url 'result' as result %}
+  {% url 'verify' as verify %}
+  {% url 'contact' as contact %}
+  {% url 'candidate' as candidate %}
+  {% url 'admin' as admin %}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid" style='margin:0px 100px'>
+      <a class="navbar-brand" href="/">E-Poll</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == index %}active{% endif %}" aria-current="page" href="{% url 'index' %} ">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == result %}active{% endif %}" href="{% url 'result' %}">Results</a>
+          </li>
+          {%if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == verify %}active{% endif %}" href="{% url 'verify' %}">Voting panel</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == contact %}active{% endif %}" href="{% url 'contact' %}">Contact Us</a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == candidate %}active{% endif %}" href="{% url 'candidate' %}">Candidate registration</a>
+          </li>
+          {% if request.user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == admin %}active{% endif %}" href="{% url 'admin' %}">Admin panel</a>
+          </li>
+          {% endif %}
+        </ul>
+
+        <div style='margin-left: auto;'}>
+          {%if user.is_authenticated %}
+            Welcome,{{request.user}}
+            
+            <a class="btn btn-outline-success mx-2" href="/logout" role="button">logout</a>
+      {% else %}
+      <a class="btn btn-outline-success mx-2" href="/login" role="button">Login</a>
+      <a class="btn btn-outline-success" href="/register" role="button">Signup</a>
+      {% endif %}
+      {% comment %} </form> {% endcomment %}
+    </div>
+    </div>
+    </div>
+  </nav>
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message: </strong> {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  </div>
+  {% block body %}{% endblock body %}
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

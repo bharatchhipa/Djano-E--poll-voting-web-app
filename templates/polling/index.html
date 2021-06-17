@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+{% for data in datas %}
+    <h1>{{data.phone}}</h1>
+    {% endfor %}
+{% endblock body %}

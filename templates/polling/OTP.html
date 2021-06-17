@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}OTP verification{% endblock title %}
+{% block body %}
+<div class="container my-3" > 
+<form action="{% url 'OTP' %}" method="POST">{% csrf_token %}
+  <div class="mb-3">
+    <label for="OTP" class="form-label">Enter the OTP</label>
+    <input type="number" class="form-control" name='OTP' id="OTP" placeholder='Enter the OTP sent on your Phone Number' Required>
+    <div id="OTPV" class="form-text">The OTP has been sent to your registered mobile number.</div>
+  </div>
+    <button type="submit" class="btn btn-success">Verify</button>
+</form>
+</div> 
+{% endblock body %}

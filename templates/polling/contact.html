@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock title %}
+{% block body %}
+<div class="container my-3" >
+<h1>Contact Us</h1> 
+<form action="{% url 'contact' %}" method='post'>{% csrf_token %}
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" name='name' id="name" aria-describedby="name" placeholder='Enter your name'>
+  </div>
+
+  <div class="mb-3">
+    <label for="emaill" class="form-label">Email address</label>
+    <input type="email" class="form-control" name='email' id="email" aria-describedby="emailHelp" placeholder='Enter your E-mail address'>
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  
+  <div class="mb-3">
+    <label for="phone" class="form-label">Phone Number</label>
+    <input type="phone" class="form-control" name='phone' id="phone" placeholder='Enter your phone number'>
+    <div id="emailHelp" class="form-text">We'll never share your phone number with anyone else.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="desc" class="form-label">Tell us about your issue:</label>
+    {% comment %} <input type="text" class="form-control" id="phone"> {% endcomment %}
+    <textarea name="desc" class="form-control" id="desc" cols="30" rows="10" style="height:132px;" placeholder='Describe your issue'></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+</div> 
+{% endblock body %}
